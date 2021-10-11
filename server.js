@@ -1,12 +1,18 @@
-//DEPENDENCIES
-
+// DEPENDENCIES
 const express = require("express");
-const PORT = process.env.PORT || 3000;
 const app = express();
-const fs = require('fs');
+const PORT = process.env.PORT || 3003;
 
-//ROUTES
+// MIDDLEWARE TO PARSE DATA
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 
-require('./routes/htmlRoutes')(app);
+// ROUTES
 require('./routes/apiRoutes')(app);
+require('./routes/htmlRoutes')(app);
 
+// LISTENER
+app.listen(PORT, function() {
+    console.log(`App listening on PORT: ${PORT}`);
+});
